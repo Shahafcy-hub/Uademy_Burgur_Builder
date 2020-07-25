@@ -6,7 +6,7 @@ const burgur = (props) =>{
     let transformedIngreadiants = Object.keys(props.ingredients)
     .map(igKey => {
         return [...Array(props.ingredients[igKey])]
-        .map((_,i) => {return <BurgurIngrediants key={igKey +i} type={igKey}/>;
+        .map((_,i) => {return <BurgurIngrediants key={igKey +i} type={igKey} ingredientAdded = {props.ingredientAdded}/>;
     });
     }).reduce((arr, el)=>{
     return arr.concat(el)
