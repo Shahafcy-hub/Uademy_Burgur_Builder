@@ -18,6 +18,9 @@ const buildControls = (props) => (
         add = {()=>props.ingredientAdded(ctrl.type)} 
         remove = {()=> props.ingredientRemoved(ctrl.type)}
         />))}
+<p>Total Price: <strong>{props.price.toFixed(2)}</strong> shekkel</p>
+
+<button className = {classes.OrderButton} disabled = {!props.perchaseable}>Checkout</button>
 </div>
 );
 

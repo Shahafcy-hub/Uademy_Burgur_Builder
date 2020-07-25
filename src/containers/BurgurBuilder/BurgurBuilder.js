@@ -7,8 +7,10 @@ const INGREDIANT_PRICES = {
     salad: 1,
     cheese: 2,
     meat: 3,
-    bacon: 2,
+    bacon: 2.5,
 };
+
+const MINIMUM_PRICE = 15;
 
 class BurgurBuilder extends Component{
     state = {
@@ -18,7 +20,8 @@ class BurgurBuilder extends Component{
         cheese:0,
         meat:0,
         },
-        totalPrice: 15
+        totalPrice: MINIMUM_PRICE,
+        perchaseable: false
     }
 
     addIngrediantHandler = (type) =>{
@@ -30,7 +33,7 @@ class BurgurBuilder extends Component{
         const priceAddition = INGREDIANT_PRICES[type];
         const newPrice = this.state.totalPrice + priceAddition;
 
-        this.setState({totalPrice: newPrice, ingredients: updatedIngrediants});
+        this.setState({totalPrice: newPrice, ingredients: updatedIngrediants, perchaseable: true});
     }
 
     removeIngrediantHandler = (type) =>{
@@ -44,7 +47,9 @@ class BurgurBuilder extends Component{
         const priceAddition = INGREDIANT_PRICES[type];
         const newPrice = this.state.totalPrice - priceAddition;
 
-        this.setState({totalPrice: newPrice, ingredients: updatedIngrediants});
+        const newPerchaseable = (newPrice !== MINIMUM_PRICE);
+
+        this.setState({totalPrice: newPrice, ingredients: updatedIngrediants, perchaseable: newPerchaseable});
         }
         
 
@@ -56,7 +61,9 @@ class BurgurBuilder extends Component{
                 <Burgur ingredients = {this.state.ingredients}/>
                 <BuildControls 
                     ingredientAdded = {this.addIngrediantHandler} 
-                    ingredientRemoved = {this.removeIngrediantHandler}/>
+                    ingredientRemoved = {this.removeIngrediantHandler}
+                    price = {this.state.totalPrice}
+                    perchaseable = {this.state.perchaseable}/>
             </Aux>
         )
     }
